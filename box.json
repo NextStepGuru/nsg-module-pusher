@@ -1,0 +1,88 @@
+{
+    "name":"nsg-module-pusher",
+    "slug":"nsg-module-pusher",
+    "version":"1.0.0",
+    "author":"Jeremy R DeYoung",
+    "shortDescription":"Pusher Monitor & LogBox Appender",
+    "location":"",
+    "directory":"",
+    "createPackageDirectory":true,
+    "packageDirectory":"",
+    "homepage":"https://github.com/NextStepGuru/nsg-module-pusher",
+    "documentation":"https://github.com/NextStepGuru/nsg-module-pusher",
+    "repository":{
+        "type":"github",
+        "url":"https://github.com/NextStepGuru/nsg-module-pusher"
+    },
+    "bugs":"",
+    "description":"",
+    "instructions":"README.md",
+    "changelog":"CHANGELOG.md",
+    "type":"",
+    "keywords":[
+
+    ],
+    "private":false,
+    "engines":[
+        {
+            "type":"railo",
+            "version":">=4.1.x"
+        },
+        {
+            "type":"adobe",
+            "version":">=10.0.0"
+        }
+    ],
+    "defaultEngine":"",
+    "defaultPort":0,
+    "projectURL":"https://github.com/NextStepGuru/nsg-module-pusher",
+    "license":[
+        {
+            "type":"",
+            "url":""
+        }
+    ],
+    "contributors":[
+
+    ],
+    "dependencies":{
+    },
+    "devDependencies":{
+
+    },
+    "installPaths":{
+
+    },
+    "ignore":[
+
+    ],
+    "testbox":{
+        "runner":[
+            {
+                "default":""
+            }
+        ],
+        "labels":[
+
+        ],
+        "reporter":"",
+        "reporterResults":"",
+        "bundles":[
+            ""
+        ],
+        "directory":{
+            "mapping":"",
+            "recurse":true
+        },
+        "watchers":[
+
+        ],
+        "notify":{
+            "emails":[
+
+            ],
+            "growl":"",
+            "url":""
+        }
+    }
+}
