@@ -6,16 +6,16 @@ component extends="coldbox.system.logging.AbstractAppender" output="false" hint=
 		super.init(argumentCollection=arguments);
 
 		// Property Checks
-		if( NOT propertyExists("channel") ){
+		if( NOT propertyExists("pusherChannel") ){
 			$throw(message="Pusher Channel is required",type="PusherAppender.PropertyNotFound");
 		}
-		if( NOT propertyExists("id") ){
+		if( NOT propertyExists("appID") ){
 			$throw(message="Pusher App_ID is required",type="PusherAppender.PropertyNotFound");
 		}
-		if( NOT propertyExists("key") ){
+		if( NOT propertyExists("pusherAppKey") ){
 			$throw(message="Pusher Key is required",type="PusherAppender.PropertyNotFound");
 		}
-		if( NOT propertyExists("secret") ){
+		if( NOT propertyExists("pusherAppSecret") ){
 			$throw(message="Pusher Secret is required",type="PusherAppender.PropertyNotFound");
 		}
 
@@ -27,7 +27,7 @@ component extends="coldbox.system.logging.AbstractAppender" output="false" hint=
 
 		thread name=reReplace(createUUID(),'\W','','all') loge=arguments.logEvent {
 			try{
-				triggerPush(channel=getProperty("channel"),event=getSeverity(loge.getSeverity()),jsonData=serializeJSON({timestamp = loge.getTimestamp(), category=loge.getCategory(), severity=getSeverity(loge.getSeverity()), message = loge.getMessage(), extra = loge.getExtraInfo() }));
+				triggerPush(channel=getProperty("pusherChannel"),event=getSeverity(loge.getSeverity()),jsonData=serializeJSON({timestamp = loge.getTimestamp(), category=loge.getCategory(), severity=getSeverity(loge.getSeverity()), message = loge.getMessage(), extra = loge.getExtraInfo() }));
 
 			}catch(any e){
 				$log("ERROR","Error sending email from appender #getName()#. #e.message# #e.detail# #e.stacktrace#");
@@ -82,7 +82,7 @@ component extends="coldbox.system.logging.AbstractAppender" output="false" hint=
 		var digest="";
 
 		secret = createObject('java', 'javax.crypto.spec.SecretKeySpec' );
-		secret.init(getProperty("secret").getBytes(), 'HmacSHA256');
+		secret.init(getProperty("pusherAppSecret").getBytes(), 'HmacSHA256');
 		mac = createObject('java', "javax.crypto.Mac");
 		mac = mac.getInstance("HmacSHA256");
 		mac.init(secret);
@@ -97,7 +97,7 @@ component extends="coldbox.system.logging.AbstractAppender" output="false" hint=
 
 		// Auth_Key
 		buffer=buffer & "auth_key=";
-		buffer=buffer & getProperty("key");
+		buffer=buffer & getProperty("pusherAppKey");
 		// Timestamp
 		buffer=buffer & "&auth_timestamp=";
 		buffer=buffer & (CreateObject("java", "java.lang.System").currentTimeMillis() / 1000);
@@ -124,7 +124,7 @@ component extends="coldbox.system.logging.AbstractAppender" output="false" hint=
 
 		// Application ID
 		buffer=buffer & "/apps/";
-		buffer=buffer & getProperty("id");
+		buffer=buffer & getProperty("appID");
 		// Channel name
 		buffer=buffer & "/channels/";
 		buffer=buffer & channelName;

@@ -42,7 +42,7 @@ component {
 		// SES Routes
 		routes = [
 			// Module Entry Point
-			{pattern="/", handler="oauth",action="index"}
+			{pattern="/:action?", handler="home"}
 		];
 
 		// Custom Declared Points
