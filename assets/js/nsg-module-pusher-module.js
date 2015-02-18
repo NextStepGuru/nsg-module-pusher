@@ -1,23 +1,47 @@
-// js
+var logSeverity = ["DEBUG","INFO","WARN","ERROR","FATAL"];
+$(function() {
+
+	$('.buttons').on('click',function(e){
+		$('#filters .active').removeClass('active');
+		$(this).addClass('active');
+
+		$('#logBox > tbody tr').removeClass('hidden');
+		for( var key in logSeverity){
+			if( logSeverity[key] != $(this).attr('rel') && $(this).attr('rel') != 'ALL' ){
+				$('#logBox > tbody tr.' + logSeverity[key]).addClass('hidden');
+			}
+		}
+	});
+
+});
 
 function writeLog(data){
+	var hiddenClass = "";
 
-	$('.tab-content #ALL > table > tbody').prepend( $('<tr><td>' + data.TIMESTAMP + '</td><td>' + data.SEVERITY + '</td><td>' + data.CATEGORY + '</td><td>' + data.MESSAGE + '</td><td>' + data.EXTRA + '</td></tr>') );
-	$('.tab-content #' + data.SEVERITY + ' > table > tbody').prepend( $('<tr><td>' + data.TIMESTAMP + '</td><td>' + data.SEVERITY + '</td><td>' + data.CATEGORY + '</td><td>' + data.MESSAGE + '</td><td>' + data.EXTRA + '</td></tr>') );
-	if(isNumber($('.nav-tabs #tab-' + data.SEVERITY + ' > span').text())){
-		$('.nav-tabs #tab-' + data.SEVERITY + ' > span').text( parseInt($('.nav-tabs #tab-' + data.SEVERITY + ' > span').text()) + 1);
-	}else{
-		$('.nav-tabs #tab-' + data.SEVERITY + ' > span').text(1);
+	if( $('#filters .active').attr('rel') != data.SEVERITY &&  $('#filters .active').attr('rel') != 'ALL'){
+		hiddenClass = " hidden";
 	}
 
-	if($('.tab-content #ALL table > tbody > tr').length > 15){
-		$('.tab-content #ALL table > tbody > tr :last').remove();
+	$('#logBox > tbody').prepend(
+		$('<tr class="' + data.SEVERITY + hiddenClass + '"><td>' + data.TIMESTAMP + '</td>' +
+			  '<td>' + data.SEVERITY + '</td>' +
+			  '<td>' + data.CATEGORY + '</td>' +
+			  '<td>' + data.MESSAGE + '</td></tr>') );
+
+	for( var key in logSeverity){
+		$('#btn-' + logSeverity[key] + ' > span').text($('.' + logSeverity[key]).length);
+
+		if($('#logBox > tbody > tr.' + data.SEVERITY).length > 100){
+			$('#logBox > tbody > tr.' + data.SEVERITY + ':last').remove();
+		}
 	}
-	if($('.tab-content #' + data.SEVERITY + ' table > tbody > tr').length > 15){
-		$('.tab-content #' + data.SEVERITY + ' table > tbody > tr :last').remove();
+	$('#btn-ALL > span').text($('#logBox > tbody >  tr').length);
+
+	if($('#logBox > tbody > tr').length > 500){
+		$('#logBox > tbody > tr:last').remove();
 	}
+
 }
-
 
 function isNumber(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);

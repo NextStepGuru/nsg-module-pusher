@@ -1,7 +1,7 @@
 {
     "name":"nsg-module-pusher",
     "slug":"nsg-module-pusher",
-    "version":"1.1.0",
+    "version":"1.1.1",
     "author":"Jeremy R DeYoung",
     "shortDescription":"Pusher Monitor & LogBox Appender",
     "location":"",
