@@ -29,7 +29,7 @@
 			</table>
 		</div>
 	</div>
-<script src="/modules/nsg-module-layout/assets/js/jquery-2.1.3.js" type="text/javascript"></script>
+<script src="#event.getModuleRoot('nsg-module-layout')#/assets/js/jquery-2.1.3.js" type="text/javascript"></script>
 <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	Pusher.log = function(message) {
